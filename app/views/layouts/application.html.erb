@@ -127,7 +127,7 @@
 
  <% if current_user.role == "admin" or current_user.role == "jefe" or current_user.role == "archivador"%>
   
-  <small> Sector : <%= current_user.sector.nombre ? current_user.sector.nombre : 'sin sector' %>  </small> <br>
+  <small> Sector : <%= current_user.sector ? current_user.sector.nombre : 'sin sector' %>  </small> <br>
     
 
 <% end %>
