@@ -1,0 +1,37 @@
+<%= form_for(@user) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+   <div class="field">
+    <%= f.label :sector_id %><br>
+    <%= f.select :sector_id , options_for_select(Sector.all.map { |s| [s.nombre, s.id] })%>
+  </div>
+
+  <div class="field">
+    <%= f.label :role %><br>
+    <%= select(:user, :role, [['admin', 'admin'], ['jefe', 'jefe'] ,['archivador', 'archivador'] ,['sin permisos', 'sin permisos']]) %>
+  </div>
+
+  
+
+  <div class="field">
+    <%= f.label :nombre %><br>
+    <%= f.text_field :nombre %>
+  </div>
+  <div class="field">
+    <%= f.label :apellido %><br>
+    <%= f.text_field :apellido %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

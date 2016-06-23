@@ -1,0 +1,52 @@
+<%= form_for(@history) do |f| %>
+  <% if @history.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@history.errors.count, "error") %> prohibited this history from being saved:</h2>
+
+      <ul>
+      <% @history.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<!--
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.text_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :box_id %><br>
+    <%= f.text_field :box_id %>
+  </div>
+
+-->
+
+
+ <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.select :user_id , options_for_select(User.all.map { |u| [u.email,u.id] })%>
+  </div>
+
+ <div class="field">
+    <%= f.label :box_id %><br>
+    <%= f.select :box_id , options_for_select(Box.all.map { |b| [b.codigo ,b.id] })%>
+  </div>
+
+  <div class="field">
+    <%= f.label :observacion %><br>
+    <%= f.text_area :observacion ,size: "70x10" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :fecha %><br>
+    <%= f.date_select :fecha %>
+  </div>
+
+   
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+
+<% end %>

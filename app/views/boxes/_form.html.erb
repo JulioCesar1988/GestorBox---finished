@@ -1,0 +1,76 @@
+<%= form_for(@box) do |f| %>
+  <% if @box.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@box.errors.count, "error") %> prohibited this box from being saved:</h2>
+
+      <ul>
+      <% @box.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+<!-- El admin y jefe van a tener el formulario completo -->  
+
+  <% if current_user.role =="jefe" or current_user.role == "admin" %>
+  <div class="field">
+    <%= f.label :descripcion %><br>
+    <%= f.text_area :descripcion ,size: "70x10" %>
+  </div>
+
+ <div class="field">
+    <%= f.label :category_id  %><br>
+    <%= f.select :category_id  , options_for_select(current_user.sector.categories.map { |s| [s.nombre, s.id] })%>
+  </div>
+
+  <div class="field">
+    <%= f.label :codigo %><br>
+    <%= f.text_field :codigo ,disabled: true %>
+  </div>
+  <div class="field">
+    <%= f.label :ubicacion %><br>
+
+  <% if current_user.role =="jefe"%>
+    <%= f.text_field :ubicacion , disabled: true %>
+  <%else %>
+  <%= f.text_field :ubicacion %>
+  <% end %>
+  </div>
+  <div class="field">
+    <%= f.label :precinto_A %><br>
+    <%= f.text_field :precinto_A %>
+  </div>
+  <div class="field">
+    <%= f.label :precinto_B %><br>
+    <%= f.text_field :precinto_B %>
+  </div>
+  <div class="field">
+    <%= f.label :fecha %><br>
+    <%= f.date_select :fecha %>
+  </div>
+  <% end  %>
+   
+
+<!-- El archivador solo puede  modificar la ubicacion de una caja -->
+ <% if current_user.role == "archivador"%>
+  <div class="field">
+    <%= f.label :codigo %><br>
+    <%= f.text_field :codigo ,disabled: true %>
+  </div>
+  <div class="field">
+    <%= f.label :ubicacion %><br>
+    <%= f.text_field :ubicacion %>
+  </div>
+  <% end  %>
+
+
+
+
+
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

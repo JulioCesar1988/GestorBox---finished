@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Usuarios </h1>
+
+<!-- <%= link_to 'Nuevo Usuario', new_user_path , :class => "btn btn-primary" %> -->
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Sector</th>
+      <th>Role</th>
+      <th>Nombre</th>
+      <th>Apellido</th>
+      <th>Email</th>
+
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.sector ? user.sector.nombre : 'sin sector' %> </td>
+         <td><%= user.role  ? user.role : 'sin rol'%> </td>
+
+        <td><%= user.nombre ? user.nombre : 'sin nombre' %></td>
+
+        <td><%= user.apellido ? user.apellido : 'sin apellido' %></td>
+        <td><%= user.email %></td>
+
+      
+        <td><%= link_to 'Editar', edit_user_path(user) ,:class=>"btn btn-warning" %>
+        <%= link_to 'Eliminar', user, method: :delete, data: { confirm: 'Are you sure?' } , :class=>"btn btn-danger"%></td> 
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+

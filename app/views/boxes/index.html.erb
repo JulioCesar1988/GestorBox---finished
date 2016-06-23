@@ -1,0 +1,93 @@
+
+
+<p id="notice"><%= notice %></p>
+
+<h1>Lista de cajas </h1>
+
+<br>
+<br>
+<%= form_tag boxes_path , :method => 'get' do %>
+  <%= text_field_tag :search , params[:search] %>
+  <%= submit_tag "buscador" ,:class=> "btn btn-info" %> 
+<% end %>
+ <% if current_user.role == "jefe" or current_user.role == "admin"  %>
+
+<%= link_to 'agregar caja', new_box_path,:class => "btn btn-primary"%>
+ <br></br> <br></br>
+ <% end %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Descripcion</th>
+      <th>Sector</th>
+      <th>Category</th>
+      <th>Codigo</th>
+      <th>Ubicacion</th>
+      <th>Precinto a</th>
+      <th>Precinto b</th>
+      <th>Fecha</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @boxes.each do |box| %>
+      <tr>
+          <% if current_user.role =="admin" or current_user.role =="jefe"  %>
+        <td><%= box.descripcion %></td>
+          <% else %>
+         <td> <% "  " %></td>
+        <% end %>
+
+        <td><%= box.sector.nombre %></td>
+        <td><%= box.category.nombre %></td>
+        <td><%= box.codigo %></td>
+
+        
+
+
+         <!-- La asignacion de la ubicacion no debe estar disponible para el jefe del sector esto es tarea del perfil archivador o admin-->
+        <% if current_user.role == "archivador" or current_user.role == "admin"  %>
+        <td><%= box.ubicacion%></td>
+  
+        <% else %>        
+           <td>   </td>
+        <% end %>
+
+
+
+
+
+
+
+
+
+        <td><%= box.precinto_A %></td>
+        <td><%= box.precinto_B %></td>
+        <td><%= box.fecha %></td>
+        <!-- <td><%= link_to 'Show', box %></td> -->
+
+         <% if  current_user.role == "admin"  %>
+        <td><%= link_to 'Editar', edit_box_path(box),:class=>"btn btn-warning" %></td>
+        <td><%= link_to 'Eliminar', box, method: :delete, data: { confirm: 'Are you sure?' } ,:class=>"btn btn-danger"%></td>
+         <% end %>
+        <% if  current_user.role == "jefe"  %>
+        <td><%= link_to 'Editar', edit_box_path(box),:class=>"btn btn-warning" %></td>
+        <td><%= link_to 'Eliminar', box, method: :delete, data: { confirm: 'Are you sure?' } ,:class=>"btn btn-danger"%></td>
+         <% end %>
+         <% if  current_user.role == "archivador"  %>
+        <td><%= link_to 'Editar', edit_box_path(box),:class=>"btn btn-warning" %></td>
+        
+         <% end %>
+
+
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+

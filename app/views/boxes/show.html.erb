@@ -1,0 +1,48 @@
+<p id="notice"><%= notice %></p>
+
+ <% if current_user.role == "jefe" or current_user.role == "admin"  %>
+
+<p>
+  <strong>Descripcion:</strong>
+  <%= @box.descripcion %>
+</p>
+
+ <% end  %>
+
+<p>
+  <strong>Sector:</strong>
+  <%= @box.sector.nombre %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @box.category.nombre %>
+</p>
+
+<p>
+  <strong>Codigo:</strong>
+  <%= @box.codigo %>
+</p>
+
+<p>
+  <strong>Ubicacion:</strong>
+  <%= @box.ubicacion %>
+</p>
+
+<p>
+  <strong>Precinto a:</strong>
+  <%= @box.precinto_A %>
+</p>
+
+<p>
+  <strong>Precinto b:</strong>
+  <%= @box.precinto_B %>
+</p>
+
+<p>
+  <strong>Fecha:</strong>
+  <%= @box.fecha %>
+</p>
+
+<%= link_to 'Editar', edit_box_path(@box) %> |
+<%= link_to 'Volver atras', boxes_path %>

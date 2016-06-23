@@ -1,0 +1,161 @@
+  <script src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
+  <!-- Versión compilada y comprimida del CSS de Bootstrap -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"> 
+<!-- Tema opcional -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css">
+<!-- Versión compilada y comprimida del JavaScript de Bootstrap -->
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gestor Box</title>
+  
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<center>
+<body >
+
+
+<nav class="navbar navbar-inverse" role="navigation">
+  <!-- El logotipo y el icono que despliega el menú se agrupan
+       para mostrarlos mejor en los dispositivos móviles -->
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse"
+            data-target=".navbar-ex1-collapse">
+      <span class="sr-only">Desplegar navegación</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="/welcome/index">GestorBox 2016</a>
+  </div>
+ 
+  <!-- Agrupar los enlaces de navegación, los formularios y cualquier
+       otro elemento que se pueda ocultar al minimizar la barra -->
+  <div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul class="nav navbar-nav">
+      
+    <!-- Control de acceso a las operaciones en el sistema -->
+    <% if user_signed_in? %>  
+
+      <% if current_user.role == "admin" %> <!-- Si es admin -->
+      <li><a href="/users">Usuarios</a></li>
+      <li><a href="/sectors">Sectores</a></li>
+      <li><a href="/categories">Categorias</a></li>
+      <li><a href="/boxes">Cajas</a></li>
+      <li><a href="/histories">Historial</a></li>
+        <% end %>
+
+    <% if current_user.role == "jefe" %> <!-- Si es Jefe -->
+      <li><a href="/sectors">Sectores</a></li>
+      <li><a href="/categories">Categorias</a></li>
+      <li><a href="/boxes">Cajas</a></li>
+      <% end %>
+
+    <% if current_user.role == "archivador" %> <!-- Si es Archivador  -->
+      <li><a href="/sectors">Sectores</a></li>
+      <li><a href="/boxes">Cajas</a></li>
+      <li><a href="/histories">Historial</a></li>
+    <% end %> 
+  
+    <% end %>
+
+
+      <!--
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          Menú #1 <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Acción #1</a></li>
+          <li><a href="#">Acción #2</a></li>
+          <li><a href="#">Acción #3</a></li>
+          <li class="divider"></li>
+          <li><a href="#">Acción #4</a></li>
+          <li class="divider"></li>
+          <li><a href="#">Acción #5</a></li>
+        </ul>
+      </li>
+     -->
+
+    </ul>
+ 
+<!--
+    <form class="navbar-form navbar-left" role="search">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Buscar">
+      </div>
+      <button type="submit" class="btn btn-default">Enviar</button>
+    </form>
+  -->
+<!--
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#">Enlace #3</a></li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          Menú #2 <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Acción #1</a></li>
+          <li><a href="#">Acción #2</a></li>
+          <li><a href="#">Acción #3</a></li>
+          <li class="divider"></li>
+          <li><a href="#">Acción #4</a></li>
+        </ul>
+      </li>
+    </ul>
+
+ -->
+
+
+
+
+  </div>
+</nav>
+
+
+<!-- Cosas de devise , creo que las puedo poner en el navegador --> 
+<p class="navbar-text pull-right">
+
+<% if user_signed_in? %>
+
+ <% if current_user.role == "admin" or current_user.role == "jefe" or current_user.role == "archivador"%>
+  
+  <small> Sector : <%= current_user.sector.nombre ? current_user.sector.nombre : 'sin sector' %>  </small> <br>
+    
+
+<% end %>
+
+ <% if current_user.role == "jefe" %>
+  <small>Tipo de usuario : Resposable de sector </small>  <br>
+  <% end %>
+
+ <% if current_user.role == "archivador" or current_user.role == "admin"%>
+  <small>Tipo de usuario : <%= current_user.role %></small>  <br>
+  <% end %>
+
+
+  <small>Usuario : <%= current_user.email %>  </small> 
+  <%= link_to 'Editar Perfil', edit_user_registration_path, :class => 'navbar-link' %> |  
+  <%= button_to "Salir", destroy_user_session_path, method:  :delete, :class => "btn btn-danger btn-sm" %>
+  
+
+<% else %>
+  <%= link_to "Registrarse", new_user_registration_path, :class => 'navbar-link'  %> |
+  <%= link_to "Ingresar", new_user_session_path, :class => 'navbar-link'  %>
+<% end %>
+
+ <p class="notice"><%= notice %></p>
+ <p class="alert"><%= alert %></p>
+
+
+<%= yield %>
+
+</body></center>
+</html>

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sector_id: 
+  role: MyString
+  nombre: MyString
+  apellido: MyString
+
+two:
+  sector_id: 
+  role: MyString
+  nombre: MyString
+  apellido: MyString
