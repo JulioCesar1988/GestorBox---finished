@@ -30,7 +30,7 @@
 
  <div class="field">
     <%= f.label :box_id %><br>
-    <%= f.select :box_id , options_for_select(Box.all.map { |b| [b.codigo ,b.id] })%>
+    <%= f.select :box_id , options_for_select(Box.all.map { |b| [b.codigo ,b.id] }, { include_blank: true })%>
   </div>
 
   <div class="field">

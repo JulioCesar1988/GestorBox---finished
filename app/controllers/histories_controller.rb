@@ -5,6 +5,13 @@ class HistoriesController < ApplicationController
   # GET /histories.json
   def index
     @histories = History.all
+    #para generar PDF
+ respond_to do |format|
+    format.html
+    format.json
+    format.pdf {render template: 'histories/reporte' , pdf: 'Reporte'}
+
+    end
   end
 
   # GET /histories/1

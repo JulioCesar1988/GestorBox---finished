@@ -24,10 +24,16 @@
   <%= @box.codigo %>
 </p>
 
+
+
+<% if current_user.role == "archivador" or current_user.role == "admin"  %>
 <p>
   <strong>Ubicacion:</strong>
   <%= @box.ubicacion %>
 </p>
+<% end %>
+
+
 
 <p>
   <strong>Precinto a:</strong>

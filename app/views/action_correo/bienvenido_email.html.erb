@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <style>
+h1 {color:gray;}
+p {color:gray;}
+</style>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <center><body>
+    <h1>Tiene un pedido de caja </h1>
+    <p>
+      Codigo de caja solicitada es : </p>
+      <tr>
+         <td><%= @box.codigo %></td><br>
+        <p>
+      Ubicaicion : </p>
+        <td><%= @box.ubicacion %></td><br>
+        <p>
+      Sector : </p>
+        <td><%= @box.sector.nombre %></td><br>
+
+       </tr>
+    <br><br><br><br><br><br><br><br><br><br><br>
+    <p>Saludos gestorBox</p>
+  </body></center>
+
+</html>
+
+

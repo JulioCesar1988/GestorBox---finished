@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Cajas </title>
+		<%=  wicked_pdf_stylesheet_link_tag 'pdf'%>
+	<meta charset="utf-8">
+
+</head>
+
+<body>
+<h2>GestorBox</h2> 
+	<table >
+		<thead>
+			<tr>
+			<th style="width: 200px">codigo</th>
+			<th style="width: 200px">precinto A</th>
+			<th style="width: 200px">precinto B</th>	
+			</tr>
+
+		</thead>
+  <tbody>
+  	<% @boxes.each do |box|%>
+    <tr>
+        <td><%= box.codigo %></td>
+        <td><%= box.precinto_A%></td>
+    	<td><%= box.precinto_B %></td>
+    	<
+    
+    </tr>
+    <%end%>
+  </tbody>
+
+	</table>
+</body>
+</html>

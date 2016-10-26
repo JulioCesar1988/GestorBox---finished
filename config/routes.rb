@@ -1,11 +1,21 @@
 Rails.application.routes.draw do
   resources :histories
-  resources :boxes
+
+  resources :boxes do
+   get 'boxes/getPng' , on: :member 
+   get 'boxes/getBox' , on: :member
+   get 'boxes/getAll'
+  end
   resources :categories
   devise_for :users
   resources :users
   resources :sectors
   get 'welcome/index'
+  get 'welcome/index2'
+  post 'boxes/pedir_cajas'
+   
+ 
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

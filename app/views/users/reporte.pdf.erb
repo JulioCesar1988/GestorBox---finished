@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Usuarios </title>
+	<%=  wicked_pdf_stylesheet_link_tag 'pdf'%>
+	<meta charset="utf-8">
+</head>
+
+<body>
+<%=  wicked_pdf_image_tag 'logo.png'%>
+<h2>GestorBox</h2>
+	<table >
+		<thead>
+			<tr>
+			<th style="width: 200px">sector</th>
+			<th style="width: 200px">role</th>
+				<th style="width: 200px">Nombre</th>
+				<th style="width: 200px">Apellido</th>
+				<th style="width: 200px">Email</th>
+				
+			</tr>
+		</thead>
+  <tbody>
+  	<% @users.each do |user|%>
+    <tr>
+        <td><%= user.sector.nombre %></td>
+        <td><%= user.role %></td>
+    	<td><%= user.nombre %></td>
+    	<td><%= user.apellido %></td>
+    	<td><%= user.email%></td>
+    </tr>
+    <%end%>
+  </tbody>
+
+	</table>
+</body>
+</html>

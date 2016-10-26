@@ -1,20 +1,70 @@
+require 'barby'
+require 'barby/barcode/code_128'
+require 'barby/outputter/prawn_outputter'
+require 'barby/outputter/png_outputter'
+require 'chunky_png'
+
 class BoxesController < ApplicationController
   before_action :set_box, only: [:show, :edit, :update, :destroy]
-
   # GET /boxes
   # GET /boxes.json
   def index
+if current_user.role == "archivador"
+   @boxes = Box.all.where([ "ubicacion LIKE ?  or  codigo LIKE ? or precinto_A LIKE ? or precinto_B LIKE ?","%#{params[:search]}%","%#{params[:search]}%","%#{params[:search]}%" ,"%#{params[:search]}%"]) # Todas las cajas , esta deberia de ser solo para el admin
+end
 
-  if current_user.role == "admin" or current_user.role == "archivador"
+if current_user.role == "admin" 
    @boxes = Box.all.where([ "ubicacion LIKE ?  or  codigo LIKE ? or precinto_A LIKE ? or precinto_B LIKE ? or descripcion LIKE ? ","%#{params[:search]}%","%#{params[:search]}%","%#{params[:search]}%" ,"%#{params[:search]}%","%#{params[:search]}%"]) # Todas las cajas , esta deberia de ser solo para el admin 
    else    
-  if current_user.role == "jefe"
+
+if current_user.role == "jefe"
   @boxes = current_user.sector.boxes.where([ "ubicacion LIKE ?  or  codigo LIKE ? or precinto_A LIKE ? or precinto_B LIKE ? or descripcion LIKE ? ","%#{params[:search]}%","%#{params[:search]}%","%#{params[:search]}%" ,"%#{params[:search]}%","%#{params[:search]}%"]) # Todas las cajas , esta deberia de ser solo para el admin 
    end
    
+end
+#para generar PDF
+ respond_to do |format|
+    format.html
+    format.json
+    format.pdf {render template: 'boxes/reporte' , pdf: 'Reporte'}
+    end
   end
 
+
+
+# Envio de Pedido de una CAJA 
+ def getBox
+@box = Box.find(params[:id])
+ActionCorreo.bienvenido_email(@box).deliver
+ end
+
+
+
+def getPng
+  if current_user.role == "admin" 
+      @boxes = Box.all # Ahora solo da cajas pertenecientas a su sector
+  else 
+       if current_user.role == "jefe" 
+      @boxes = current_user.sector.boxes # Ahora solo da cajas pertenecientas a su sector
+    end
   end
+
+
+@box = Box.find(params[:id])
+box = Box.find(params[:id])
+#barcode = Barby::Code128B.new(box.codigo)
+#File.open("carpeta_para_los_png/#{box.codigo}_barcode.png","wb"){|f| f.write barcode.to_png }
+#File.open("app/assets/images/#{box.codigo}_barcode.png","wb"){|f| f.write barcode.to_png }
+end
+
+def getAll
+    @boxes = current_user.sector.boxes
+end
+
+
+
+
+
 
   # GET /boxes/1
   # GET /boxes/1.json
@@ -34,17 +84,19 @@ class BoxesController < ApplicationController
   # POST /boxes.json
   def create
     @box = Box.new(box_params)
-     
     respond_to do |format|
-
       if @box.save
-       
-
-       @box.sector_id = current_user.sector_id # Agregamos el Id del Sector .
+    @box.sector_id = current_user.sector_id # Agregamos el Id del Sector .
     @box.codigo = @box.sector.cod + @box.category.cod + @box.fecha.strftime('%y%m')
        @box.codigo += current_user.sector.boxes.count.to_s.rjust(4,'0')
-
         @box.save
+
+        # Genero el codigo de barras 
+        barcode = Barby::Code128B.new(@box.codigo)
+        #File.open("carpeta_para_los_png/#{box.codigo}_barcode.png","wb"){|f| f.write barcode.to_png }
+        File.open("app/assets/images/#{@box.codigo}_barcode.png","wb"){|f| f.write barcode.to_png }
+
+
         format.html { redirect_to @box, notice: 'Box was successfully created.' }
         format.json { render :show, status: :created, location: @box }
       else

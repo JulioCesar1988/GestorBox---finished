@@ -27,8 +27,13 @@
          <!--Las operaciones tienen que estar limitadas al perfil del usuario -->
        <!-- <td><%= link_to 'Show', history %></td> -->
         <td><%= link_to 'Editar', edit_history_path(history) ,:class=>"btn btn-warning"%>
-        <%= link_to 'Eliminar', history, method: :delete, data: { confirm: 'Are you sure?' } ,:class=>"btn btn-danger"%></td>
+
       
+          <% if current_user.role == "admin"  %>
+        <%= link_to 'Eliminar', history, method: :delete, data: { confirm: 'Are you sure?' } ,:class=>"btn btn-danger"%></td>
+      <% end %>
+
+
       </tr>
     <% end %>
   </tbody>

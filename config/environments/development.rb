@@ -1,4 +1,15 @@
 Rails.application.configure do
+
+config.action_mailer.delivery_method = :smtp
+config.action_mailer.smtp_settings = {
+  address:              'smtp.millerbi.net',
+  port:                 587,
+  domain:               'millerbi.net',
+  user_name:            'gestorbox@millerbi.net',
+  password:             'gestorbox777',
+  authentication:       'plain',
+  enable_starttls_auto: true  }
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
@@ -14,8 +25,10 @@ Rails.application.configure do
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+ config.action_mailer.raise_delivery_errors = true #para que mande emails
+ # config.action_mailer.raise_delivery = true # agregue para mandar emails 
 
+  
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
@@ -39,5 +52,5 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 } # Agregamos esto para devise. 
+config.action_mailer.default_url_options = { host: 'localhost', port: 3000 } # Agregamos esto para devise. 
 end

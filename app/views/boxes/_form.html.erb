@@ -22,21 +22,36 @@
 
  <div class="field">
     <%= f.label :category_id  %><br>
-    <%= f.select :category_id  , options_for_select(current_user.sector.categories.map { |s| [s.nombre, s.id] })%>
+   <%= f.select :category_id  , options_for_select(current_user.sector.categories.map { |s| [s.nombre, s.id ]} )%> 
+
+
+    <!--<%= f.select :category_id  , options_for_select(current_user.sector.categories.map { |s| [s.nombre, s.id] })%> -->
+ 
   </div>
 
   <div class="field">
     <%= f.label :codigo %><br>
+    <% if current_user.role =="archivador" or current_user.role == "jefe"%>
     <%= f.text_field :codigo ,disabled: true %>
+
+    <%else %>
+     <%= f.text_field :codigo  %>
+    <% end%>
+
+
   </div>
+
+
+
+<!--
   <div class="field">
     <%= f.label :ubicacion %><br>
-
   <% if current_user.role =="jefe"%>
     <%= f.text_field :ubicacion , disabled: true %>
   <%else %>
   <%= f.text_field :ubicacion %>
   <% end %>
+-->
   </div>
   <div class="field">
     <%= f.label :precinto_A %><br>
@@ -48,7 +63,7 @@
   </div>
   <div class="field">
     <%= f.label :fecha %><br>
-    <%= f.date_select :fecha %>
+    <%= f.date_select :fecha ,:start_year =>2000 ,:end_year=> 2030%>
   </div>
   <% end  %>
    
@@ -63,6 +78,18 @@
     <%= f.label :ubicacion %><br>
     <%= f.text_field :ubicacion %>
   </div>
+
+  <% end  %>
+
+
+  <!-- El archivador solo puede  modificar la ubicacion de una caja -->
+ <% if current_user.role == "admin"%>
+
+  <div class="field">
+    <%= f.label :ubicacion %><br>
+    <%= f.text_field :ubicacion %>
+  </div>
+
   <% end  %>
 
 

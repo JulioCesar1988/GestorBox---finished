@@ -3,20 +3,28 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Lista de cajas </h1>
+<!-- <%=form_tag({:controller=>"boxes",:action=>"pedir_cajas"},:method=> "post") do %> -->
+<!--  <%= submit_tag "Pedir" , :class=>"btn btn-success"%>  -->
+<%end%>
 
 <br>
 <br>
+
 <%= form_tag boxes_path , :method => 'get' do %>
-  <%= text_field_tag :search , params[:search] %>
-  <%= submit_tag "buscador" ,:class=> "btn btn-info" %> 
-<% end %>
- <% if current_user.role == "jefe" or current_user.role == "admin"  %>
 
+<%= text_field_tag :search , params[:search] %>
+<%= submit_tag "buscar" ,:class=> "btn btn-info" %> 
+<% end %>
+
+
+ <% if current_user.role == "jefe" or current_user.role == "admin"  %>
 <%= link_to 'agregar caja', new_box_path,:class => "btn btn-primary"%>
+
+
  <br></br> <br></br>
  <% end %>
 
-<table class="table table-striped">
+<table class="table">
   <thead>
     <tr>
       <th>Descripcion</th>
@@ -27,6 +35,7 @@
       <th>Precinto a</th>
       <th>Precinto b</th>
       <th>Fecha</th>
+     <!-- <th>Solicitar</th> -->
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -45,8 +54,6 @@
         <td><%= box.codigo %></td>
 
         
-
-
          <!-- La asignacion de la ubicacion no debe estar disponible para el jefe del sector esto es tarea del perfil archivador o admin-->
         <% if current_user.role == "archivador" or current_user.role == "admin"  %>
         <td><%= box.ubicacion%></td>
@@ -54,40 +61,44 @@
         <% else %>        
            <td>   </td>
         <% end %>
-
-
-
-
-
-
-
-
-
         <td><%= box.precinto_A %></td>
         <td><%= box.precinto_B %></td>
         <td><%= box.fecha %></td>
-        <!-- <td><%= link_to 'Show', box %></td> -->
+       <!-- <td><input name=boxes[] value="<%= box.codigo %>" type="checkbox"></td> -->
+         <td><%= link_to 'Ver', box ,:class=> "btn btn-info" %></td> 
 
-         <% if  current_user.role == "admin"  %>
+        <% if  current_user.role == "admin"  %>
+        
         <td><%= link_to 'Editar', edit_box_path(box),:class=>"btn btn-warning" %></td>
         <td><%= link_to 'Eliminar', box, method: :delete, data: { confirm: 'Are you sure?' } ,:class=>"btn btn-danger"%></td>
+       <td><%= link_to 'Etiqueta', box_boxes_getAll_path(box),:class => "btn btn-success"%></td>
+         <td><%= link_to 'Pedir', boxes_getBox_box_path(box),:class=>"btn btn-primary" %></td>
+     
          <% end %>
         <% if  current_user.role == "jefe"  %>
         <td><%= link_to 'Editar', edit_box_path(box),:class=>"btn btn-warning" %></td>
-        <td><%= link_to 'Eliminar', box, method: :delete, data: { confirm: 'Are you sure?' } ,:class=>"btn btn-danger"%></td>
+        <!--<td><%= link_to 'Eliminar', box, method: :delete, data: { confirm: 'Are you sure?' } ,:class=>"btn btn-danger"%></td> -->
+<!-- Generar codigo de barras -->
+        <!--<td><%= link_to 'Codigo', boxes_getPng_box_path(box),:class=>"btn btn-success" %></td>-->
+         <td><%= link_to 'Pedir', boxes_getBox_box_path(box),:class=>"btn btn-primary" %></td>
+           <td><%= link_to 'Etiqueta', box_boxes_getAll_path(box),:class => "btn btn-success"%></td>      
          <% end %>
          <% if  current_user.role == "archivador"  %>
         <td><%= link_to 'Editar', edit_box_path(box),:class=>"btn btn-warning" %></td>
-        
+       
+
+ 
+
          <% end %>
 
 
-
+       
+      
       </tr>
     <% end %>
+
   </tbody>
 </table>
 
 <br>
-
 

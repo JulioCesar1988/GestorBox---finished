@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>historial </title>
+	<%=  wicked_pdf_stylesheet_link_tag 'pdf'%>
+	<meta charset="utf-8">
+</head>
+
+<body>
+<%=  wicked_pdf_image_tag 'logo.png'%>
+<h2>GestorBox</h2> <p>Historial de cajas </p>
+	<table >
+		<thead>
+			<tr>
+			<th style="width: 200px">Usuario</th>
+			<th style="width: 200px">Codigo</th>
+				<th style="width: 200px">observacion</th>
+				<th style="width: 200px">fecha</th>
+			
+				
+			</tr>
+		</thead>
+  <tbody>
+  	<% @histories.each do |history|%>
+    <tr>
+        <td><%= history.user.email %></td>
+        <td><%= history.box.codigo%></td>
+    	<td><%= history.observacion %></td>
+    	<td><%= history.fecha %></td>
+    
+    </tr>
+    <%end%>
+  </tbody>
+
+	</table>
+</body>
+</html>

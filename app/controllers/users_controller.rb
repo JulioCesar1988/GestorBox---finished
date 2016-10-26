@@ -5,6 +5,13 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @users = User.all
+    #para generar PDF
+ respond_to do |format|
+    format.html
+    format.json
+    format.pdf {render template: 'users/reporte' , pdf: 'Reporte'}
+
+    end
   end
 
   # GET /users/1
