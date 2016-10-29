@@ -6,7 +6,7 @@ config.action_mailer.smtp_settings = {
   port:                 587,
   domain:               'millerbi.net',
   user_name:            'gestorbox@millerbi.net',
-  password:             'gestorbox777',
+  password:             '***********************',
   authentication:       'plain',
   enable_starttls_auto: true  }
 
