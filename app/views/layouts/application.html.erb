@@ -1,27 +1,24 @@
-  <script src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
-  <!-- Versión compilada y comprimida del CSS de Bootstrap -->
+<script src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
+<!-- Versión compilada y comprimida del CSS de Bootstrap -->
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"> 
 <!-- Tema opcional -->
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css">
 <!-- Versión compilada y comprimida del JavaScript de Bootstrap -->
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-
+<!-- para hacer la parte grafica de estadisticas -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.bundle.js"></script>
 
 <!DOCTYPE html>
 <html>
 <head>
   <title>Gestor Box</title>
-  
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
  <meta name="viewport" content="width=device-width, initial-scale=1">
-
 </head>
 <center>
 <body >
-
-
 <nav class="navbar navbar-inverse" role="navigation">
   <!-- El logotipo y el icono que despliega el menú se agrupan
        para mostrarlos mejor en los dispositivos móviles -->
@@ -35,35 +32,43 @@
     </button>
     <a class="navbar-brand" href="/welcome/index">GestorBox 2016</a>
   </div>
- 
   <!-- Agrupar los enlaces de navegación, los formularios y cualquier
        otro elemento que se pueda ocultar al minimizar la barra -->
   <div class="collapse navbar-collapse navbar-ex1-collapse">
     <ul class="nav navbar-nav">
-      
     <!-- Control de acceso a las operaciones en el sistema -->
     <% if user_signed_in? %>  
-
       <% if current_user.role == "admin" %> <!-- Si es admin -->
       <li><a href="/users">Usuarios</a></li>
       <li><a href="/sectors">Sectores</a></li>
       <li><a href="/categories">Categorias</a></li>
       <li><a href="/boxes">Cajas</a></li>
       <li><a href="/histories">Historial</a></li>
-        <% end %>
-
+      <li><a href="/welcome/estadistica">Estadisticas</a></li>
+      <% end %>
     <% if current_user.role == "jefe" %> <!-- Si es Jefe -->
       <li><a href="/sectors">Sectores</a></li>
       <li><a href="/categories">Categorias</a></li>
       <li><a href="/boxes">Cajas</a></li>
+      <li><a href="/histories">Historial</a></li>
+      <li><a href="/welcome/estadistica">Estadisticas</a></li>
       <% end %>
-
     <% if current_user.role == "archivador" %> <!-- Si es Archivador  -->
       <li><a href="/sectors">Sectores</a></li>
       <li><a href="/boxes">Cajas</a></li>
       <li><a href="/histories">Historial</a></li>
+      <li><a href="/welcome/estadistica">Estadisticas</a></li>
     <% end %> 
-  
+
+     <% if current_user.role == "auxiliar" %> <!-- nuevo perfil -->
+     <li><a href="/sectors">Sectores</a></li>
+     <li><a href="/boxes">Cajas</a></li>   
+     <li><a href="/welcome/estadistica">Estadisticas</a></li>
+     <li><a href="/histories">Historial</a></li>
+     <li><a href="/categories">Categorias</a></li>
+      <% end %>
+
+
     <% end %>
 
 
@@ -123,10 +128,14 @@
 <!-- Cosas de devise , creo que las puedo poner en el navegador --> 
 <p class="navbar-text pull-right">
 
+<!-- Verifico que el usuario este logeado en el sistema --> 
 <% if user_signed_in? %>
 
- <% if current_user.role == "admin" or current_user.role == "jefe" or current_user.role == "archivador"%>
+ 
+<!-- Verifico si tiene algun perfil valido en el sistema . --> 
+ <% if current_user.role == "admin" or current_user.role == "jefe" or current_user.role == "archivador" or current_user.role == "auxiliar"%>
   
+<!-- En caso de que no tenga un sector asignado , informo que no tiene un sector--> 
   <small> Sector : <%= current_user.sector ? current_user.sector.nombre : 'sin sector' %>  </small> <br>
     
 
@@ -137,6 +146,10 @@
   <% end %>
 
  <% if current_user.role == "archivador" or current_user.role == "admin"%>
+  <small>Tipo de usuario : <%= current_user.role %></small>  <br>
+  <% end %>
+
+  <% if current_user.role == "auxiliar"%>
   <small>Tipo de usuario : <%= current_user.role %></small>  <br>
   <% end %>
 

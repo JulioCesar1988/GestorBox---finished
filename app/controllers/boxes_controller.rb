@@ -8,18 +8,19 @@ class BoxesController < ApplicationController
   before_action :set_box, only: [:show, :edit, :update, :destroy]
   # GET /boxes
   # GET /boxes.json
-  def index
+def index
+
+if current_user.role == "auxiliar" or current_user.role == "jefe" 
+  @boxes = current_user.sector.boxes.where([ "ubicacion LIKE ?  or  codigo LIKE ? or precinto_A LIKE ? or precinto_B LIKE ? or descripcion LIKE ? ","%#{params[:search]}%","%#{params[:search]}%","%#{params[:search]}%" ,"%#{params[:search]}%","%#{params[:search]}%"]) # Todas las cajas , esta deberia de ser solo para el admin 
+end
+
+
 if current_user.role == "archivador"
    @boxes = Box.all.where([ "ubicacion LIKE ?  or  codigo LIKE ? or precinto_A LIKE ? or precinto_B LIKE ?","%#{params[:search]}%","%#{params[:search]}%","%#{params[:search]}%" ,"%#{params[:search]}%"]) # Todas las cajas , esta deberia de ser solo para el admin
 end
 
 if current_user.role == "admin" 
    @boxes = Box.all.where([ "ubicacion LIKE ?  or  codigo LIKE ? or precinto_A LIKE ? or precinto_B LIKE ? or descripcion LIKE ? ","%#{params[:search]}%","%#{params[:search]}%","%#{params[:search]}%" ,"%#{params[:search]}%","%#{params[:search]}%"]) # Todas las cajas , esta deberia de ser solo para el admin 
-   else    
-
-if current_user.role == "jefe"
-  @boxes = current_user.sector.boxes.where([ "ubicacion LIKE ?  or  codigo LIKE ? or precinto_A LIKE ? or precinto_B LIKE ? or descripcion LIKE ? ","%#{params[:search]}%","%#{params[:search]}%","%#{params[:search]}%" ,"%#{params[:search]}%","%#{params[:search]}%"]) # Todas las cajas , esta deberia de ser solo para el admin 
-   end
    
 end
 #para generar PDF
@@ -28,6 +29,7 @@ end
     format.json
     format.pdf {render template: 'boxes/reporte' , pdf: 'Reporte'}
     end
+
   end
 
 
@@ -44,7 +46,7 @@ def getPng
   if current_user.role == "admin" 
       @boxes = Box.all # Ahora solo da cajas pertenecientas a su sector
   else 
-       if current_user.role == "jefe" 
+       if current_user.role == "jefe" or current_user.role == "auxiliar" 
       @boxes = current_user.sector.boxes # Ahora solo da cajas pertenecientas a su sector
     end
   end
@@ -58,7 +60,9 @@ box = Box.find(params[:id])
 end
 
 def getAll
+    
     @boxes = current_user.sector.boxes
+    render :layout => false
 end
 
 

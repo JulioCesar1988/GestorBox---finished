@@ -84,14 +84,26 @@
 
   <!-- El archivador solo puede  modificar la ubicacion de una caja -->
  <% if current_user.role == "admin"%>
-
   <div class="field">
     <%= f.label :ubicacion %><br>
     <%= f.text_field :ubicacion %>
   </div>
+  <% end  %>
+ <% if current_user.role == "auxiliar"%>
+
+  <div class="field">
+    <%= f.label :precinto_A %><br>
+    <%= f.text_field :precinto_A %>
+  </div>
+  <div class="field">
+    <%= f.label :precinto_B %><br>
+    <%= f.text_field :precinto_B %>
+  </div>
+
+
+ 
 
   <% end  %>
-
 
 
 

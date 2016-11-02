@@ -1,8 +1,9 @@
 <p id="notice"><%= notice %></p>
 
 <h1> Categorias</h1>
+ <% if  current_user.role == "jefe" %>
 <%= link_to 'Agregar Categoria', new_category_path , :class => "btn btn-primary" %>
-
+ <% end %>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -21,10 +22,13 @@
         <td><%= category.sector.nombre %></td>
 
         <!--<td><%= link_to 'Show', category %></td> -->
-        <td><%= link_to 'Editar', edit_category_path(category) ,:class=>"btn btn-warning"%>
 
+         <% if  current_user.role == "jefe" %>
+        <td><%= link_to 'Editar', edit_category_path(category) ,:class=>"btn btn-warning"%>
+         <% end %>
 
         <% if  current_user.role == "admin" %>
+        <td><%= link_to 'Editar', edit_category_path(category) ,:class=>"btn btn-warning"%>
         <%= link_to 'Eliminar', category, method: :delete, data: { confirm: 'Are you sure?' } ,:class=>"btn btn-danger"%></td>
         <% end %>
 

@@ -1,8 +1,19 @@
 <p id="notice"><%= notice %></p>
-
 <h1>Historial</h1>
 <br></br>
+
+<% if current_user.role == "admin" %>
 <%= link_to 'Agregar Historial', new_history_path ,:class => "btn btn-primary" %>
+<% end  %>
+<% if current_user.role == "archivador" %>
+<%= link_to 'Agregar Historial', new_history_path ,:class => "btn btn-primary" %>
+<% end  %>
+
+
+
+
+
+
 <br></br>
 <table class="table table-striped">
   <thead>
@@ -21,19 +32,23 @@
         <td><%= history.user.email %></td>
         <td><%= history.box.codigo %></td>
         <td><%= history.observacion %></td>
-         <td><%= history.fecha %></td>
-
-
+        <td><%= history.fecha %></td>
+       
          <!--Las operaciones tienen que estar limitadas al perfil del usuario -->
-       <!-- <td><%= link_to 'Show', history %></td> -->
+        <!--<td><%= link_to 'Show', history %></td> -->
+        <% if current_user.role == "admin"  %>
+        <td><%= link_to 'Eliminar', history, method: :delete, data: { confirm: 'Are you sure?' } ,:class=>"btn btn-danger"%></td>
+         <td><%= link_to 'Editar', edit_history_path(history) ,:class=>"btn btn-warning"%>
+      <% end %>
+       <% if current_user.role == "archivador"  %>
         <td><%= link_to 'Editar', edit_history_path(history) ,:class=>"btn btn-warning"%>
+       <% end %>
+      
+      
 
       
-          <% if current_user.role == "admin"  %>
-        <%= link_to 'Eliminar', history, method: :delete, data: { confirm: 'Are you sure?' } ,:class=>"btn btn-danger"%></td>
-      <% end %>
-
-
+              
+    
       </tr>
     <% end %>
   </tbody>

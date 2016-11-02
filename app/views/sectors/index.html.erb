@@ -23,7 +23,7 @@
        
          <% if  current_user.role == "admin"  %>
         <td><%= link_to 'Editar', edit_sector_path(sector),:class=>"btn btn-warning" %>
-      <!--<%= link_to 'Eliminar', sector, method: :delete, data: { confirm: 'Are you sure?' } , :class=>"btn btn-danger" %></td> -->
+           <td><%= link_to 'Eliminar', sector, method: :delete, data: { confirm: 'Are you sure?' } , :class=>"btn btn-danger" %></td> 
          <% end %>
 
 

@@ -6,12 +6,13 @@ Rails.application.routes.draw do
    get 'boxes/getBox' , on: :member
    get 'boxes/getAll'
   end
+ 
   resources :categories
   devise_for :users
   resources :users
   resources :sectors
   get 'welcome/index'
-  get 'welcome/index2'
+  get 'welcome/estadistica'
   post 'boxes/pedir_cajas'
    
  

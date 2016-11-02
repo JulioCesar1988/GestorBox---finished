@@ -1,10 +1,19 @@
 class HistoriesController < ApplicationController
   before_action :set_history, only: [:show, :edit, :update, :destroy]
-
   # GET /histories
   # GET /histories.json
   def index
+
+  if current_user.role == "admin" or current_user.role  == "archivador" 
     @histories = History.all
+  end 
+
+if current_user.role == "jefe" or current_user.role == "auxiliar"
+   @histories = current_user.histories
+end   
+
+
+
     #para generar PDF
  respond_to do |format|
     format.html

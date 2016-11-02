@@ -15,6 +15,11 @@ class CategoriesController < ApplicationController
    
   end
 
+if current_user.role == "auxiliar"
+  @categories = current_user.sector.categories
+end
+
+
   end
 
   # GET /categories/1

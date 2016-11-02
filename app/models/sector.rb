@@ -1,7 +1,7 @@
 class Sector < ActiveRecord::Base
-	has_many :categories 
-	has_many :boxes 
-
+	has_many :categories , dependent: :destroy
+	has_many :boxes , dependent: :destroy
+    has_many :users ,dependent: :destroy
 
     # Validaciones de los campos de sector . 
     validates :nombre, presence: true 
