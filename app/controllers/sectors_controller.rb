@@ -5,6 +5,14 @@ class SectorsController < ApplicationController
   # GET /sectors.json
   def index
     @sectors = Sector.all
+
+        #para generar PDF
+ respond_to do |format|
+    format.html
+    format.json
+    format.pdf {render template: 'sectors/reporte' , pdf: 'Reporte'}
+
+    end
   end
 
   # GET /sectors/1

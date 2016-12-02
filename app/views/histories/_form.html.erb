@@ -25,12 +25,12 @@
 
  <div class="field">
     <%= f.label :user_id %><br>
-    <%= f.select :user_id , options_for_select(User.all.map { |u| [u.email,u.id] })%>
+    <%= f.select :user_id , options_for_select(User.all.map { |u| [u.email,u.id] }, { selected: (@history.user.id rescue nil) })%>
   </div>
 
  <div class="field">
     <%= f.label :box_id %><br>
-    <%= f.select :box_id , options_for_select(Box.all.map { |b| [b.codigo ,b.id] }, { include_blank: true })%>
+    <%= f.select :box_id , options_for_select(Box.all.map { |b| [b.codigo ,b.id] }, { include_blank: true, selected: (@history.box.id rescue nil)})%>
   </div>
 
   <div class="field">

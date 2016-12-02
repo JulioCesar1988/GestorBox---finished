@@ -22,7 +22,7 @@
 
  <div class="field">
     <%= f.label :category_id  %><br>
-   <%= f.select :category_id  , options_for_select(current_user.sector.categories.map { |s| [s.nombre, s.id ]} )%> 
+   <%= f.select :category_id  , options_for_select(current_user.sector.categories.map { |s| [s.nombre, s.id ]},{ selected: (@box.category.id rescue nil) }  )%> 
 
 
     <!--<%= f.select :category_id  , options_for_select(current_user.sector.categories.map { |s| [s.nombre, s.id] })%> -->

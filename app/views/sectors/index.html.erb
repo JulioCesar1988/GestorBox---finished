@@ -1,7 +1,21 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Sectores</h1>
+   <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-red">
+            <div class="inner">
+              <h3><%=Sector.all.count %></h3>
 
+              <p>Sectors</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-pie-graph"></i>
+            </div>
+            <a href="#" class="small-box-footer">Sectores existentes <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
 <% if current_user.role == "admin"%>
 <%= link_to 'Agregar Sector', new_sector_path ,:class => "btn btn-primary" %>
 <% end %>

@@ -1,7 +1,9 @@
 
 
 <p id="notice"><%= notice %></p>
+
 <h1>Lista de cajas </h1>
+
 <!-- <%=form_tag({:controller=>"boxes",:action=>"pedir_cajas"},:method=> "post") do %> -->
 <!--  <%= submit_tag "Pedir" , :class=>"btn btn-success"%>  -->
 <%end%>
@@ -13,6 +15,11 @@
 
 <%= text_field_tag :search , params[:search] %>
 <%= submit_tag "buscar" ,:class=> "btn btn-info" %> 
+
+
+     
+  
+
 <% end %>
 
 <!-- Solamente puede agregar una CAJA EL JEFE -->
@@ -22,7 +29,7 @@
  <% end %>
 
 
-<table class="table">
+<table class="table" > 
   <thead>
     <tr>
       <th>Descripcion</th>
@@ -69,6 +76,7 @@
           <td><%= link_to 'Editar', edit_box_path(box),:class=>"btn btn-warning" %></td>
           <td><%= link_to 'Eliminar', box, method: :delete, data: { confirm: 'Are you sure?' } ,:class=>"btn btn-danger"%></td>
           <td><%= link_to 'Pedir', boxes_getBox_box_path(box),:class=>"btn btn-primary" %></td>
+          <td><%= link_to 'Etiqueta', box_boxes_getAll_path(box),:class => "btn btn-success"%></td>
         <% end %>
 
         <% if  current_user.role == "jefe"  %>

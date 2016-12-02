@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :sectors
   get 'welcome/index'
   get 'welcome/estadistica'
+  get 'welcome/estadistica2'
   post 'boxes/pedir_cajas'
    
  

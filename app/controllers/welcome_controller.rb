@@ -3,4 +3,6 @@ class WelcomeController < ApplicationController
   end
   def estadistica
   end
+  def estadistica2
+  end
 end
