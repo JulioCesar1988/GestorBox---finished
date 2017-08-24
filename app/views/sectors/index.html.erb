@@ -1,25 +1,12 @@
+
+<div class="container">
+<div class="table-responsive"> 
 <p id="notice"><%= notice %></p>
-
-<h1>Sectores</h1>
-   <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-red">
-            <div class="inner">
-              <h3><%=Sector.all.count %></h3>
-
-              <p>Sectors</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-pie-graph"></i>
-            </div>
-            <a href="#" class="small-box-footer">Sectores existentes <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
+<h1>Sectores</h1>      
 <% if current_user.role == "admin"%>
 <%= link_to 'Agregar Sector', new_sector_path ,:class => "btn btn-primary" %>
 <% end %>
-
+</div>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -28,24 +15,18 @@
       <th colspan="3"></th>
     </tr>
   </thead>
-
   <tbody>
     <% @sectors.each do |sector| %>
       <tr>
         <td><%= sector.nombre %></td>
         <td><%= sector.cod %></td>
-       
          <% if  current_user.role == "admin"  %>
         <td><%= link_to 'Editar', edit_sector_path(sector),:class=>"btn btn-warning" %>
-           <td><%= link_to 'Eliminar', sector, method: :delete, data: { confirm: 'Are you sure?' } , :class=>"btn btn-danger" %></td> 
+           <td><%= link_to 'Eliminar', sector, method: :delete, data: { confirm: 'Desea eliminar este sector ?' } , :class=>"btn btn-danger" %></td> 
          <% end %>
-
-
       </tr>
     <% end %>
   </tbody>
 </table>
-
 <br>
-
-  
+<div>

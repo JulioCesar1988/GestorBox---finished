@@ -7,7 +7,6 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'chunky_png'
 
-
 gem 'adminlte-rails'
 
 

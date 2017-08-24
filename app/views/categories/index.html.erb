@@ -1,25 +1,13 @@
+<div class="container">
+<div class="table-responsive"> 
 <p id="notice"><%= notice %></p>
-
 <h1> Categorias</h1>
-   <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-green">
-            <div class="inner">
-              <h3><%=Category.all.count %> </h3>
 
-              <p>Category</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-pie-graph"></i>
-            </div>
-            <a href="#" class="small-box-footer">Categorias existentes en el sistema<i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
- <% if  current_user.role == "jefe" %>
+
+ <% if  current_user.role == "jefe" or current_user.role == "admin"%>
 <%= link_to 'Agregar Categoria', new_category_path , :class => "btn btn-primary" %>
  <% end %>
-<table class="table table-striped">
+<table class = "table table-striped">
   <thead>
     <tr>
       <th>Nombre</th>
@@ -28,29 +16,24 @@
       <th colspan="3"></th>
     </tr>
   </thead>
-
   <tbody>
     <% @categories.each do |category| %>
       <tr>
         <td><%= category.nombre %></td>
         <td><%= category.cod %></td>
         <td><%= category.sector.nombre %></td>
-
         <!--<td><%= link_to 'Show', category %></td> -->
-
          <% if  current_user.role == "jefe" %>
         <td><%= link_to 'Editar', edit_category_path(category) ,:class=>"btn btn-warning"%>
          <% end %>
-
         <% if  current_user.role == "admin" %>
-        <td><%= link_to 'Editar', edit_category_path(category) ,:class=>"btn btn-warning"%>
-        <%= link_to 'Eliminar', category, method: :delete, data: { confirm: 'Are you sure?' } ,:class=>"btn btn-danger"%></td>
-        <% end %>
 
+        <td><%= link_to 'Editar', edit_category_path(category) ,:class=>"btn btn-warning"%>
+        <%= link_to 'Eliminar', category, method: :delete, data: { confirm: 'Desea elminar esta categoria ?' } ,:class=>"btn btn-danger"%></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
-
 <br>
-
+<div>

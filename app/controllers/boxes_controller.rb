@@ -1,3 +1,5 @@
+
+# Librerias necesarias para algunos controladores .
 require 'barby'
 require 'barby/barcode/code_128'
 require 'barby/outputter/prawn_outputter'
@@ -8,20 +10,17 @@ class BoxesController < ApplicationController
   before_action :set_box, only: [:show, :edit, :update, :destroy]
   # GET /boxes
   # GET /boxes.json
-def index
 
+
+def index
 if current_user.role == "auxiliar" or current_user.role == "jefe" 
   @boxes = current_user.sector.boxes.where([ "ubicacion LIKE ?  or  codigo LIKE ? or precinto_A LIKE ? or precinto_B LIKE ? or descripcion LIKE ? ","%#{params[:search]}%","%#{params[:search]}%","%#{params[:search]}%" ,"%#{params[:search]}%","%#{params[:search]}%"]) # Todas las cajas , esta deberia de ser solo para el admin 
 end
-
-
 if current_user.role == "archivador"
    @boxes = Box.all.where([ "ubicacion LIKE ?  or  codigo LIKE ? or precinto_A LIKE ? or precinto_B LIKE ?","%#{params[:search]}%","%#{params[:search]}%","%#{params[:search]}%" ,"%#{params[:search]}%"]) # Todas las cajas , esta deberia de ser solo para el admin
 end
-
 if current_user.role == "admin" 
    @boxes = Box.all.where([ "ubicacion LIKE ?  or  codigo LIKE ? or precinto_A LIKE ? or precinto_B LIKE ? or descripcion LIKE ? ","%#{params[:search]}%","%#{params[:search]}%","%#{params[:search]}%" ,"%#{params[:search]}%","%#{params[:search]}%"]) # Todas las cajas , esta deberia de ser solo para el admin 
-   
 end
 #para generar PDF
  respond_to do |format|
@@ -29,15 +28,14 @@ end
     format.json
     format.pdf {render template: 'boxes/reporte' , pdf: 'Reporte'}
     end
-
   end
 
 
 
 # Envio de Pedido de una CAJA 
  def getBox
-@box = Box.find(params[:id])
-ActionCorreo.bienvenido_email(@box).deliver
+  @box = Box.find(params[:id])
+  ActionCorreo.bienvenido_email(@box).deliver
  end
 
 
@@ -59,16 +57,10 @@ box = Box.find(params[:id])
 #File.open("app/assets/images/#{box.codigo}_barcode.png","wb"){|f| f.write barcode.to_png }
 end
 
-def getAll
-    
+def getAll    
     @boxes = current_user.sector.boxes
     render :layout => false
 end
-
-
-
-
-
 
   # GET /boxes/1
   # GET /boxes/1.json

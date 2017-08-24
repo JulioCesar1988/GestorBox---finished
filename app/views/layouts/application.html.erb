@@ -11,22 +11,19 @@
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.bundle.js"></script>-->
 <!-- para hacer la parte grafica de estadisticas -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.bundle.js"></script>
-
 <!DOCTYPE html>
-
-
 <head>
-  <title>Gestor Box</title>
+  <title>GestorBox</title>
    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 </head>
 <center>
+
 <body >
 
-<nav class="navbar navbar-inverse" role="navigation">
+<nav class="navbar navbar-inverse" role="navigation" > 
   <!-- El logotipo y el icono que despliega el menú se agrupan
        para mostrarlos mejor en los dispositivos móviles -->
   <div class="navbar-header">
@@ -37,7 +34,7 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="/welcome/index">GestorBox 2016</a>
+    <a class="navbar-brand" href="/welcome/index">GestorBox  <%= image_tag("archivos.jpg", :alt => "rss feed" , height: '32', width: '32' ) %></a>
   </div>
   <!-- Agrupar los enlaces de navegación, los formularios y cualquier
        otro elemento que se pueda ocultar al minimizar la barra -->
@@ -52,8 +49,8 @@
       <li><a href="/boxes">Cajas</a></li>
       <li><a href="/histories">Historial</a></li>
       <li><a href="/welcome/estadistica">Estadisticas</a></li>
-
       <% end %>
+
     <% if current_user.role == "jefe" %> <!-- Si es Jefe -->
       <li><a href="/sectors">Sectores</a></li>
       <li><a href="/categories">Categorias</a></li>
@@ -61,6 +58,7 @@
       <li><a href="/histories">Historial</a></li>
       <li><a href="/welcome/estadistica">Estadisticas</a></li>
       <% end %>
+
     <% if current_user.role == "archivador" %> <!-- Si es Archivador  -->
       <li><a href="/sectors">Sectores</a></li>
       <li><a href="/boxes">Cajas</a></li>
@@ -96,11 +94,7 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
          <small >Usuario : <%= current_user.email %>  </small> <b class="caret"></b>
         </a>
-       
-   
-        
-
-          
+                 
         <ul class="dropdown-menu">
         <li><a href=""><small>Usuario : <%= current_user.email %>  </small> <b></b></a></li>
          <% if current_user.role == "admin" or current_user.role == "jefe" or current_user.role == "archivador" or current_user.role == "auxiliar"%>
@@ -115,27 +109,26 @@
         </ul>
       </li>
     </ul>
-
-     
+    
 <% end %>
  
-
-
-
-
   </div>
- 
-
 
 </nav>
 
 
-
  <p class="notice"><%= notice %></p>
  <p class="alert"><%= alert %></p>
-
-
 <%= yield %>
+ <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; GestorBox 2017 <%= image_tag("archivos.jpg", :alt => "rss feed" , height: '32', width: '32' ) %></p>
+      </div>
+      <!-- /.container -->
+    </footer>
+  
+</body>
 
-</body></center>
+</center>
 </html>
