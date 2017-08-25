@@ -4,20 +4,25 @@ class CategoriesController < ApplicationController
   # GET /categories
   # GET /categories.json
   def index
-
-
    if current_user.role == "admin" or current_user.role == "archivador"
    @categories = Category.all
    else    
   if current_user.role == "jefe"
   @categories = current_user.sector.categories
    end
-   
   end
-
 if current_user.role == "auxiliar"
   @categories = current_user.sector.categories
 end
+#para generar PDF
+ respond_to do |format|
+    format.html
+    format.json
+    format.pdf {render template: 'categories/reporte' , pdf: 'reporte'}
+    
+  end
+
+
 
 
   end

@@ -14,14 +14,14 @@ default: &default
   encoding: utf8
   pool: 5
   username: root
-  password: 1988julio
+  password: 1988julio #millerbi
   host : localhost
   socket: /var/run/mysqld/mysqld.sock
 
 development:
   <<: *default
   database: live_development
-  database: millerdb
+  database: millerdb    # millerbi
   host : 127.0.0.1
   port : 3306
 

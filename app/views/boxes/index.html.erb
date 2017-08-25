@@ -41,16 +41,13 @@
           <% if current_user.role == "admin" or 
                 current_user.role == "jefe"  or 
                 current_user.role == "auxiliar"%>
-        <td><%= box.descripcion.truncate(20) %></td>
+        <td><%= box.descripcion.truncate(50)  %></td> 
           <% else %>
          <td> <% "  " %></td>
         <% end %>
-
         <td><%= box.sector.nombre %></td>
         <td><%= box.category.nombre %></td>
         <td><%= box.codigo %></td>
-
-        
          <!-- La asignacion de la ubicacion no debe estar disponible para el jefe del sector esto es tarea del perfil archivador o admin-->
         <% if current_user.role == "archivador" or current_user.role == "admin"  %>
         <td><%= box.ubicacion%></td>

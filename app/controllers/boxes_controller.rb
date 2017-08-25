@@ -5,12 +5,10 @@ require 'barby/barcode/code_128'
 require 'barby/outputter/prawn_outputter'
 require 'barby/outputter/png_outputter'
 require 'chunky_png'
-
 class BoxesController < ApplicationController
   before_action :set_box, only: [:show, :edit, :update, :destroy]
   # GET /boxes
   # GET /boxes.json
-
 
 def index
 if current_user.role == "auxiliar" or current_user.role == "jefe" 

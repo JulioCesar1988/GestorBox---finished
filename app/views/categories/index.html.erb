@@ -2,8 +2,6 @@
 <div class="table-responsive"> 
 <p id="notice"><%= notice %></p>
 <h1> Categorias</h1>
-
-
  <% if  current_user.role == "jefe" or current_user.role == "admin"%>
 <%= link_to 'Agregar Categoria', new_category_path , :class => "btn btn-primary" %>
  <% end %>
@@ -27,7 +25,6 @@
         <td><%= link_to 'Editar', edit_category_path(category) ,:class=>"btn btn-warning"%>
          <% end %>
         <% if  current_user.role == "admin" %>
-
         <td><%= link_to 'Editar', edit_category_path(category) ,:class=>"btn btn-warning"%>
         <%= link_to 'Eliminar', category, method: :delete, data: { confirm: 'Desea elminar esta categoria ?' } ,:class=>"btn btn-danger"%></td>
         <% end %>
@@ -37,3 +34,4 @@
 </table>
 <br>
 <div>
+
